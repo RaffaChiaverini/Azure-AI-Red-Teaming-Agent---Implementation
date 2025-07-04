@@ -1,11 +1,4 @@
-Perfetto! Ecco la versione aggiornata del `README.md` che include:
 
-* Una nota chiara che **si consiglia di impostare i filtri di sicurezza (content filtering) al minimo** per vedere in modo più evidente l'efficacia e il comportamento dell’agente.
-* Tutto il resto rimane coerente con la versione precedente: naturale ma professionale, pensato da sviluppatori per sviluppatori.
-
----
-
-````markdown
 # Azure AI Red Teaming Agent – EvaluationSDK & FoundrySDK Implementations
 
 Questo repository offre un'implementazione completa e funzionante di un **AI Red Teaming Agent** costruito con le tecnologie Microsoft Azure. Sono incluse due versioni operative:
@@ -158,17 +151,6 @@ Pull request, segnalazioni e suggerimenti sono benvenuti!
 [eval-sdk]: https://learn.microsoft.com/en-us/azure/ai-foundry/how-to/develop/run-scans-ai-red-teaming-agent
 [foundry-sdk]: https://learn.microsoft.com/en-us/azure/ai-foundry/how-to/develop/run-ai-red-teaming-cloud
 
-```
-
----
-
-Fammi sapere se vuoi che aggiunga anche:
-
-- Un diagramma visivo (flowchart)
-- Un file `.env.example`
-- Un output di esempio come `red_team_output.json` o un log
-
-Posso anche formattarlo per GitHub Pages o documentazione tecnica se serve.
 ```
 
 ### Attack risk category
