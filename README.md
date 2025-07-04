@@ -155,8 +155,8 @@ Pull request, segnalazioni e suggerimenti sono benvenuti!
 
 ### Attack risk category
 
-![Attack risk category](Images\Screenshot 2025-07-04 182816.png)
+![Attack risk category](Images/Screenshot 2025-07-04 182816.png)
 
 ### Attack Complexity
 
-![Attack Complexity](Images\Screenshot 2025-07-04 182839.png)
+![Attack Complexity](Images/Screenshot 2025-07-04 182839.png)
