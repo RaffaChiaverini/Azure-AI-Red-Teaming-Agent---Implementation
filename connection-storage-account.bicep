@@ -4,7 +4,7 @@ Connections enable your AI applications to access tools and objects managed else
 This example demonstrates how to add an Azure Storage connection.
 */
 param aiFoundryName string = 'AIRedTeamingAgentDemonstration'
-param connectedResourceName string = 'st${aiFoundryName}'
+param connectedResourceName string = 'redteamingagent'
 param location string = 'eastus2'
 
 // Whether to create a new Azure AI Search resource
@@ -12,7 +12,7 @@ param location string = 'eastus2'
   'new'
   'existing'
 ])
-param newOrExisting string = 'new'
+param newOrExisting string = 'existing'
  
 // Refers your existing Azure AI Foundry resource
 resource aiFoundry 'Microsoft.CognitiveServices/accounts@2025-04-01-preview' existing = {
