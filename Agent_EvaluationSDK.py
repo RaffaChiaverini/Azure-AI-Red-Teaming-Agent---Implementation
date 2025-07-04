@@ -15,16 +15,6 @@ from openai import AzureOpenAI
 # Pyrit imports 
 from pyrit.prompt_target import OpenAIChatTarget, PromptChatTarget
 
-
-
-
-"""# Azure AI Project Hub information
-azure_ai_project = {
-    "subscription_id": os.environ.get("AZURE_SUBSCRIPTION_ID"),
-    "resource_group_name": os.environ.get("AZURE_RESOURCE_GROUP_NAME"),
-    "project_name": os.environ.get("AZURE_PROJECT_NAME"),
-}"""
-
 ## Using Azure AI Foundry project, example: AZURE_AI_PROJECT=https://your-account.services.ai.azure.com/api/projects/your-project
 azure_ai_project = os.environ.get("AZURE_AI_PROJECT")
 
@@ -68,7 +58,7 @@ async def azure_openai_callback(messages: list, stream=False, session_state=None
     client = AzureOpenAI(
         azure_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT"), 
         azure_ad_token_provider=token_provider,
-        api_version="2024-10-21"
+        api_version=azure_openai_api_version
     )
 
 
@@ -122,18 +112,18 @@ async def main():
         target=azure_openai_callback,
         scan_name="Advanced-Callback-Scan",
         attack_strategies=[
-            AttackStrategy.EASY,  # Group of easy complexity attacks
-            AttackStrategy.MODERATE,  # Group of moderate complexity attacks
-            AttackStrategy.CharacterSpace,  # Add character spaces
-            AttackStrategy.ROT13,  # Use ROT13 encoding
-            AttackStrategy.UnicodeConfusable,  # Use confusable Unicode characters
-            AttackStrategy.CharSwap,  # Swap characters in prompts
-            AttackStrategy.Morse,  # Encode prompts in Morse code
-            AttackStrategy.Leetspeak,  # Use Leetspeak
-            AttackStrategy.Url,  # Use URLs in prompts
-            AttackStrategy.Binary,  # Encode prompts in binary
+            AttackStrategy.Tense,             # Changes tense of text into past tense.
+            AttackStrategy.CharacterSpace,    # Add character spaces
+            AttackStrategy.ROT13,             # Use ROT13 encoding
+            AttackStrategy.UnicodeConfusable, # Use confusable Unicode characters
+            AttackStrategy.CharSwap,          # Swap characters in prompts
+            AttackStrategy.Morse,             # Encode prompts in Morse code
+            AttackStrategy.Leetspeak,         # Use Leetspeak
+            AttackStrategy.Url,               # Use URLs in prompts
+            AttackStrategy.Binary,            # Encode prompts in binary
             AttackStrategy.Compose([AttackStrategy.Base64, AttackStrategy.ROT13]),  # Use two strategies in one attack
         ],
+        output_path="Custom-Prompt-Scan.json"
     )
     return result
 
