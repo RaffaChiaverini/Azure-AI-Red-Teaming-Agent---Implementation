@@ -151,7 +151,6 @@ Pull request, segnalazioni e suggerimenti sono benvenuti!
 [eval-sdk]: https://learn.microsoft.com/en-us/azure/ai-foundry/how-to/develop/run-scans-ai-red-teaming-agent
 [foundry-sdk]: https://learn.microsoft.com/en-us/azure/ai-foundry/how-to/develop/run-ai-red-teaming-cloud
 
-```
 
 ### Attack risk category
 
