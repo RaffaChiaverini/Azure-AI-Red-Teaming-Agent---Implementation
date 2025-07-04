@@ -1,46 +1,45 @@
-
 # Azure AI Red Teaming Agent – EvaluationSDK & FoundrySDK Implementations
 
-Questo repository offre un'implementazione completa e funzionante di un **AI Red Teaming Agent** costruito con le tecnologie Microsoft Azure. Sono incluse due versioni operative:
+This repository provides a complete and working implementation of an **AI Red Teaming Agent** built using Microsoft Azure technologies. It includes two operational versions:
 
-- Una che sfrutta l’**Azure AI Evaluation SDK** in locale (con supporto a PyRIT)
-- Una che utilizza l’**Azure AI Foundry SDK** per eseguire test direttamente in cloud
+- One using the **Azure AI Evaluation SDK** locally (with PyRIT support)
+- One using the **Azure AI Foundry SDK** to execute tests in the cloud
 
-Entrambe sono pronte all’uso. È sufficiente **personalizzare il file `.env` con le proprie credenziali e configurazioni Azure** per eseguire subito i test.
+Both versions are plug-and-play. Simply **customize the `.env` file with your Azure credentials and configuration** to run scans immediately.
 
-> ✅ Ottimo punto di partenza per testare la robustezza dei modelli LLM e la risposta ai tentativi di prompt injection o contenuti sensibili.
+> ✅ A solid starting point for testing the robustness of LLMs and evaluating their response to prompt injection or sensitive content attempts.
 
 ---
 
-## 🚀 Cosa contiene
+## 🚀 What’s Inside
 
-| File                      | Descrizione                                                                 |
+| File                      | Description                                                                 |
 |---------------------------|-----------------------------------------------------------------------------|
-| `Agent_EvaluationSDK.py` | Red teaming locale con [Azure AI Evaluation SDK][eval-sdk] e callback personalizzati. |
-| `Agent_FoundrySDK.py`    | Red teaming via cloud con [Azure AI Foundry SDK][foundry-sdk].              |
+| `Agent_EvaluationSDK.py` | Local red teaming with [Azure AI Evaluation SDK][eval-sdk] and custom callbacks. |
+| `Agent_FoundrySDK.py`    | Cloud-based red teaming with [Azure AI Foundry SDK][foundry-sdk].              |
 
-Questa repo è pensata per team di sicurezza, ricercatori o prompt engineer interessati a valutare la resilienza dei modelli AI rispetto a strategie comuni di attacco testuale.
+This repo is designed for security teams, researchers, and prompt engineers who want to assess the resilience of AI models against typical text-based adversarial attacks.
 
 ---
 
-## ⚙️ Setup & Configurazione
+## ⚙️ Setup & Configuration
 
-### 1. Clona la repo
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/your-org/azure-red-teaming-agent.git
 cd azure-red-teaming-agent
 ````
 
-### 2. Installa le dipendenze
+### 2. Install dependencies
 
-> Richiede Python 3.9+
+> Requires Python 3.9+
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Dipendenze principali:
+Main dependencies:
 
 * `azure-ai-evaluation[redteam]`
 * `azure-ai-projects`
@@ -49,14 +48,14 @@ Dipendenze principali:
 * `python-dotenv`
 * `azure-identity`
 
-### 3. Configura il file `.env`
+### 3. Configure the `.env` file
 
 ```env
-# Endpoint del progetto Foundry (solo per Agent_FoundrySDK.py)
-AZURE_AI_PROJECT=https://<account>.services.ai.azure.com/api/projects/<nome-progetto>
+# Foundry project endpoint (used by Agent_FoundrySDK.py)
+AZURE_AI_PROJECT=https://<account>.services.ai.azure.com/api/projects/<project-name>
 
 # Azure OpenAI
-AZURE_OPENAI_ENDPOINT=https://<tuo-openai>.openai.azure.com
+AZURE_OPENAI_ENDPOINT=https://<your-openai>.openai.azure.com
 AZURE_OPENAI_DEPLOYMENT=gpt-4
 AZURE_OPENAI_KEY=your-azure-openai-key
 AZURE_OPENAI_API_VERSION=2024-02-15-preview
@@ -64,30 +63,30 @@ AZURE_OPENAI_API_VERSION=2024-02-15-preview
 
 ---
 
-## 🧠 Come funziona
+## 🧠 How It Works
 
-### ✅ Evaluation SDK (locale)
+### ✅ Evaluation SDK (local)
 
-* Usa la classe `RedTeam` da `azure.ai.evaluation.red_team`.
-* Include callback statici o dinamici con Azure OpenAI.
-* Supporta strategie di attacco avanzate e categorie di rischio multiple.
-* Esecuzione asincrona e altamente personalizzabile.
+* Uses the `RedTeam` class from `azure.ai.evaluation.red_team`
+* Includes both static and dynamic Azure OpenAI callbacks
+* Supports advanced attack strategies and multiple risk categories
+* Async execution and highly configurable
 
 ### ☁️ Foundry SDK (cloud)
 
-* Usa `AIProjectClient` per eseguire i test da remoto.
-* Configura target e strategie tramite oggetti modello.
-* Perfetto per integrazione in pipeline automatizzate.
+* Uses `AIProjectClient` to execute tests remotely
+* Attack strategies and risk categories are configured via model objects
+* Suitable for CI/CD integration or automated model evaluations
 
 ---
 
-## 🧪 Prompt Shield e Filtri di Sicurezza
+## 🧪 Prompt Shield and Filtering
 
-> ⚠️ **IMPORTANTE:** per osservare in modo più evidente le funzionalità dell’agente e valutare le reali risposte del modello, **si consiglia di impostare al minimo le configurazioni di filtering e contenuto sensibile** sul proprio endpoint Azure OpenAI.
+> ⚠️ **IMPORTANT:** To clearly observe the agent’s full functionality and better evaluate actual model responses, it is **recommended to minimize the content filtering settings** on your Azure OpenAI deployment.
 
-Durante i test, Microsoft può bloccare alcune richieste tramite **Prompt Shield** (un livello di protezione che agisce *prima* dell’inferenza del modello). Questo comportamento è parte integrante delle difese Azure, ma può interferire con i risultati se non gestito.
+During testing, Microsoft may block or sanitize certain requests using **Prompt Shield**, a protection layer that can intercept harmful content *before* it reaches the model. While this is expected behavior, it can interfere with test results if not considered.
 
-Alcuni attacchi che possono essere bloccati in anticipo:
+Examples of attack patterns often intercepted:
 
 * `ROT13`
 * `UNICODE_CONFUSABLE`
@@ -96,7 +95,7 @@ Alcuni attacchi che possono essere bloccati in anticipo:
 
 ---
 
-## 🎯 Strategie di Attacco Supportate
+## 🎯 Supported Attack Strategies
 
 * `Base64`
 * `ROT13`
@@ -107,9 +106,9 @@ Alcuni attacchi che possono essere bloccati in anticipo:
 * `UnicodeConfusable`
 * `Diacritic`
 * `Jailbreak`
-* `Compose` (es. `Base64 + ROT13`)
+* `Compose` (e.g., `Base64 + ROT13`)
 
-### Categorie di rischio testate:
+### Risk Categories Tested:
 
 * `VIOLENCE`
 * `HATE_UNFAIRNESS`
@@ -118,39 +117,40 @@ Alcuni attacchi che possono essere bloccati in anticipo:
 
 ---
 
-## 📌 Use Case
+## 📌 Use Cases
 
-* Validazione e tuning delle policy di sicurezza
-* Analisi del comportamento dei modelli sotto attacco
-* Ricerca su difese AI e content filtering
-* Testing automatizzato di modelli LLM
+* Validating and tuning LLM safety policies
+* Analyzing model behavior under adversarial inputs
+* Researching AI defenses and content filtering effectiveness
+* Automating red team assessments for LLM deployments
 
 ---
 
-## 📚 Documentazione Ufficiale
+## 📚 Official Documentation
 
-* [AI Red Teaming con Evaluation SDK][eval-sdk]
-* [AI Red Teaming con Foundry SDK][foundry-sdk]
-* [Azure AI Evaluation SDK su PyPI](https://pypi.org/project/azure-ai-evaluation/)
+* [AI Red Teaming with Evaluation SDK][eval-sdk]
+* [AI Red Teaming with Foundry SDK][foundry-sdk]
+* [Azure AI Evaluation SDK on PyPI](https://pypi.org/project/azure-ai-evaluation/)
 * [Microsoft PyRIT GitHub](https://github.com/Azure/PyRIT)
 
 ---
 
-## 📝 Licenza
+## 📝 License
 
-Distribuito sotto licenza MIT — vedi [LICENSE](./LICENSE)
+Distributed under the MIT License — see [LICENSE](./LICENSE)
 
 ---
 
-## 🙋‍♀️ Contribuisci
+## 🙋‍♂️ Contributing
 
-Pull request, segnalazioni e suggerimenti sono benvenuti!
+Pull requests, suggestions, and issue reports are welcome!
 
 ---
 
 [eval-sdk]: https://learn.microsoft.com/en-us/azure/ai-foundry/how-to/develop/run-scans-ai-red-teaming-agent
 [foundry-sdk]: https://learn.microsoft.com/en-us/azure/ai-foundry/how-to/develop/run-ai-red-teaming-cloud
 
+---
 
 ### Attack risk category
 
@@ -159,3 +159,17 @@ Pull request, segnalazioni e suggerimenti sono benvenuti!
 ### Attack Complexity
 
 ![Attack Complexity](Images/attack-complexity.png)
+
+```
+
+---
+
+Let me know if you'd like:
+
+- A separate version for GitHub Pages
+- An `.env.example` template
+- Additional automation, badges, or CI integration notes
+
+Ready to assist!
+
+'''
